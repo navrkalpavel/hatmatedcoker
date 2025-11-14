@@ -1,13 +1,10 @@
 FROM alpine:3.20
 
-# Potřebujeme curl, ssh (kvůli klíčům) a dpkg-deb na rozbalení .deb balíčku
-RUN apk add --no-cache curl openssh ca-certificates dpkg
+RUN apk add --no-cache curl openssh ca-certificates
 
-# Verzi si můžeš případně přepsat build argumentem
 ARG UPTERM_VERSION=0.17.0
-ENV UPTERM_VERSION=${UPTERM_VERSION}
 
-# Detekce architektury a stažení správného .deb z GitHubu
+# Arch detection
 RUN ARCH=$(apk --print-arch) && \
     if [ "$ARCH" = "x86_64" ]; then \
         TARGET=amd64; \
@@ -15,16 +12,13 @@ RUN ARCH=$(apk --print-arch) && \
         TARGET=arm64; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
-    fi; \
-    URL="https://github.com/owenthereal/upterm/releases/download/v${UPTERM_VERSION}/upterm_linux_${TARGET}.deb"; \
-    echo "Downloading Upterm from $URL"; \
-    curl -L "$URL" -o /tmp/upterm.deb && \
-    dpkg-deb -x /tmp/upterm.deb / && \
-    rm /tmp/upterm.deb
-
-# V .deb balíčku by měl být /usr/bin/upterm, takže ho máme rovnou v PATH
-# pro jistotu můžeš přidat symlink, ale typicky není potřeba:
-# RUN ln -s /usr/bin/upterm /usr/local/bin/upterm || true
+    fi && \
+    URL="https://github.com/owenthereal/upterm/releases/download/v${UPTERM_VERSION}/uptermd_linux_${TARGET}.tar.gz" && \
+    echo "Downloading $URL" && \
+    curl -L "$URL" -o /tmp/uptermd.tar.gz && \
+    tar -xf /tmp/uptermd.tar.gz -C /usr/local/bin && \
+    rm /tmp/uptermd.tar.gz && \
+    chmod +x /usr/local/bin/uptermd
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
