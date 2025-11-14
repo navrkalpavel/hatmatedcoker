@@ -34,4 +34,13 @@ echo "  SSH_PORT_LISTEN   = $SSH_PORT_LISTEN"
 echo "  SSH_PORT_ADVERTISE= $SSH_PORT_ADVERTISE"
 echo "  SSH_KEYS_PATH     = $SSH_KEYS_PATH"
 
-exec tmate-ssh-server
+# Spustíme server *explicitně* s parametry a ve verbose režimu
+tmate-ssh-server -v \
+  -b 0.0.0.0 \
+  -p "$SSH_PORT_LISTEN" \
+  -k "$SSH_KEYS_PATH" \
+  -h "$SSH_HOSTNAME"
+
+rc=$?
+echo "[tmate-addon] tmate-ssh-server exited with code $rc"
+sleep 3600
