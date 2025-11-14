@@ -1,5 +1,5 @@
 name: Upterm Server
-version: "1.0.3"
+version: "1.0.4"
 slug: upterm_server
 description: "Self-hosted Upterm SSH relay server"
 arch:
