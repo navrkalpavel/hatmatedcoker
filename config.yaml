@@ -1,20 +1,20 @@
-name: "tmate SSH Server"
-version: "1.1.1"
-slug: "tmate_ssh_server"
-description: "Self-hosted tmate SSH server for remote terminal sharing"
-url: "https://tmate.io"
+name: Upterm Server
+version: "1.0.0"
+slug: upterm_server
+description: "Self-hosted Upterm SSH relay server"
 arch:
   - amd64
   - aarch64
-init: false
+
+host_network: true
 startup: services
 boot: auto
-host_network: false
-ports:
-  "22/tcp": 22
+
+# Porty zahodíme — u host_network jsou ignorované
+ports: {}
+
 map:
   - data:rw
-privileged:
-  - SYS_ADMIN
+
 options: {}
 schema: {}
