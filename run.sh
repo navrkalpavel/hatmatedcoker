@@ -10,7 +10,7 @@ fi
 
 echo "[upterm] Starting uptermd on port 22"
 
-/usr/local/bin/upterm \
+/usr/bin/upterm \
   serve \
   --ssh-host-key $KEY \
   --bind-addr 0.0.0.0:22
