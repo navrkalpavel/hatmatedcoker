@@ -1,5 +1,5 @@
 name: "tmate SSH Server"
-version: "1.0.1"
+version: "1.0.2"
 slug: "tmate_ssh_server"
 description: "Self-hosted tmate SSH server for remote terminal sharing"
 url: "https://tmate.io"
@@ -11,7 +11,7 @@ startup: services
 boot: auto
 host_network: false
 ports:
-  "2222/tcp": 2222
+  "22/tcp": 22
 map:
   - data:rw
 privileged:
