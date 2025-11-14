@@ -1,0 +1,20 @@
+name: "tmate SSH Server"
+version: "1.0.0"
+slug: "tmate_ssh_server"
+description: "Self-hosted tmate SSH server for remote terminal sharing"
+url: "https://tmate.io"
+arch:
+  - amd64
+  - aarch64
+init: false
+startup: services
+boot: auto
+host_network: false
+ports:
+  "2222/tcp": 2222
+map:
+  - data:rw
+privileged:
+  - SYS_ADMIN
+options: {}
+schema: {}
